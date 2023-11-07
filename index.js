@@ -3,7 +3,7 @@ const inquirer = require("inquirer");
 questions = [
   {
     type: "rawlist",
-    name: "view-depts",
+    name: "options",
     message: "What would you like to do?",
     choices: [
       "view all departments",
@@ -14,5 +14,10 @@ questions = [
       "add an employee",
       "update an employee role",
     ],
+  },
+  {
+    type: "",
+    name: "addRole",
+    when: (answers) => answers.options[4],
   },
 ];
