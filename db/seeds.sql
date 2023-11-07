@@ -1,4 +1,4 @@
-INSERT INTO DEPARTMENT (
+INSERT INTO department (
     NAME
 ) VALUES (
     "Video Juegos"
@@ -10,29 +10,30 @@ INSERT INTO DEPARTMENT (
     "Mom Jokes"
 );
 
-INSERT INTO ROLE (
-    TITLE,
-    SALARY,
-) VALUES (
+INSERT INTO role_table (
+    title,
+    salary
+) 
+VALUES (
     "JOKE CURATOR",
-    40000
+    "40000"
 ),
 (
     "Joke Teller",
-    50000
+    "50000"
 ),
 (
     "Joke Listener",
-    60000
+    "60000"
 ),
 (
     "Therapist for Joke Listener",
-    70000
+    "70000"
 );
 
-INSERT INTO EMPLOYEE (
+INSERT INTO employee (
     FIRST_NAME,
-    LAST_NAME,
+    LAST_NAME
 ) VALUES (
     "Brian",
     "Is-The-Best"
