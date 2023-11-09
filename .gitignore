@@ -1,3 +1,4 @@
 .DS_Store
 /cRM
 /node_modules
+.env

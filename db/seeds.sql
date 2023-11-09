@@ -1,14 +1,10 @@
 INSERT INTO department (
     NAME
-) VALUES (
-    "Video Juegos"
-),
-(
-    "Being Cereal"
-),
-(
-    "Mom Jokes"
-);
+) VALUES 
+("Mom Jokes"),
+("Marketing Department"),
+("Finance Department"),
+("Human Resources");
 
 INSERT INTO role_table (
     title,
@@ -16,22 +12,23 @@ INSERT INTO role_table (
 ) 
 VALUES (
     "JOKE CURATOR",
-    "40000"
+    40000
 ),
 (
     "Joke Teller",
-    "50000"
+    50000
 ),
 (
     "Joke Listener",
-    "60000"
+    60000
 ),
 (
     "Therapist for Joke Listener",
-    "70000"
-);
+    70000
+),
+("manager", 80000);
 
-INSERT INTO employee (
+INSERT INTO employees (
     FIRST_NAME,
     LAST_NAME
 ) VALUES (
@@ -45,4 +42,24 @@ INSERT INTO employee (
 (
     "Jared",
     "Is-The-Okayest"
+),
+(
+    "Owen",
+    "Is-The-Best"
+),
+(
+    "Paul",
+    "Is-The-Best"
+)
+,(
+    "Charlie",
+    "Is-The-Best"
+)
+,(
+    "Kathy",
+    "Is-The-Best"
+)
+,(
+    "Mauria",
+    "Is-The-Best"
 );
