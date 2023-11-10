@@ -27,10 +27,16 @@ DROP TABLE IF EXISTS employees;
 
 CREATE TABLE employees (
     ID INT PRIMARY KEY AUTO_INCREMENT,
-    first_name VARCHAR(30) NOT NULL,
-    last_name VARCHAR(30) NOT NULL,
+    first_name VARCHAR(30),
+    last_name VARCHAR(30),
     role_id INT,
     FOREIGN KEY(role_id) REFERENCES role_table(id),
     manager_id INT,
-    FOREIGN KEY(manager_id) REFERENCES employees(ID)
-);
+    FOREIGN KEY(manager_id) REFERENCES employees(ID) ON DELETE SET NULL);
+
+-- CREATE TABLE manager (
+--     ID INT PRIMARY KEY AUTO_INCREMENT,
+--     manager_id INT
+-- )
+
+-- DROP TABLE IF EXISTS manager;
