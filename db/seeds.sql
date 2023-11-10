@@ -1,3 +1,4 @@
+--Dept Seed Data
 INSERT INTO department (
     NAME
 ) VALUES 
@@ -6,6 +7,7 @@ INSERT INTO department (
 ("Finance Department"),
 ("Human Resources");
 
+--Roles Seed Data
 INSERT INTO role_table (
     title,
     salary,
@@ -33,6 +35,7 @@ VALUES (
 ),
 ("manager", 80000, 4);
 
+--Employee Seed Data
 INSERT INTO employees (
     FIRST_NAME,
     LAST_NAME,
@@ -51,6 +54,7 @@ INSERT INTO employees (
     2
 );
 
+--set managers in employees table needed to happen here because the IDs didn't exist yet when trying to populate in the original INSERT above.
 INSERT INTO employees (
     FIRST_NAME,
     LAST_NAME,
@@ -86,22 +90,3 @@ INSERT INTO employees (
     2,
     3
 );
-
--- --set managers in employees table needed to happen here because the IDs didn't exist yet when trying to populate in the original INSERT above.
--- UPDATE employees
--- SET manager_id = NULL
--- WHERE `ID` < 4;
-
--- UPDATE employees
--- SET manager_id = 3
--- WHERE `ID` > 6;
-
--- UPDATE employees
--- SET manager_id = 1
--- WHERE `ID` > 4 && `ID` < 7;
-
--- UPDATE employees
--- SET manager_id = 2
--- WHERE `ID` = 4;
-
---THE ABOVE WAS DEPRECATED BY THE SECOND INSERT FOR BETTER READABILITY.

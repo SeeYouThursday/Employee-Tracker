@@ -1,8 +1,10 @@
 const inquirer = require("inquirer");
+const quit = require("./dbfunc");
+const checkingQuit = require("./dbfunc");
 
 questions = [
   {
-    type: "rawlist",
+    type: "list",
     name: "options",
     message: "What would you like to do?",
     choices: [
@@ -21,6 +23,7 @@ questions = [
 
 inquirer.prompt(questions).then((answers) => {
   console.log(answers);
+  checkingQuit(answers, questions);
   //CREATE QUERY BASED ON ANSWER
 });
 

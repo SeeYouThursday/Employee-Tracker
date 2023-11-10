@@ -1,3 +1,5 @@
+const inquirer = require("inquirer");
+
 function whichQuery(answers) {
   switch (answers) {
     case "view all departments":
@@ -15,3 +17,10 @@ function whichQuery(answers) {
     default:
   }
 }
+
+//loop through the answers, if the answer is not 'Quit', then return the prompt question
+
+const checkingQuit = (answers, questions) =>
+  answers.quit === true ? console.log(`Bye!`) : inquirer.prompt(questions);
+
+module.exports = checkingQuit;

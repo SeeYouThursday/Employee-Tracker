@@ -34,9 +34,3 @@ CREATE TABLE employees (
     manager_id INT,
     FOREIGN KEY(manager_id) REFERENCES employees(ID) ON DELETE SET NULL);
 
--- CREATE TABLE manager (
---     ID INT PRIMARY KEY AUTO_INCREMENT,
---     manager_id INT
--- )
-
--- DROP TABLE IF EXISTS manager;
