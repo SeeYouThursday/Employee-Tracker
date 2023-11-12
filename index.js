@@ -1,7 +1,7 @@
 require("dotenv").config();
 const inquirer = require("inquirer");
 require("dotenv").config();
-const { checkingQuit, whichQuery } = require("./assets/js/dbfunc");
+const { whichQuery } = require("./assets/js/dbfunc");
 const mysql = require("mysql2");
 
 //Deconstructing the .env file for readability
@@ -37,6 +37,12 @@ questions = [
     ],
   },
   //TODO conditional questions for adding roles/dept/employees
+  {
+    input: "text",
+    name: "role",
+    message: "Enter a new role.",
+    when: this.choices === "add a role",
+  },
 ];
 
 inquirer.prompt(questions).then((answers) => {

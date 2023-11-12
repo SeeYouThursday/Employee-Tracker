@@ -1,26 +1,25 @@
 require("dotenv").config();
 const mysql = require("mysql2/promise");
-// const checkingQuit = require('')
 const { printTable } = require("console-table-printer");
-const inquirer = require("inquirer");
-const questions = require("../../index");
+// const inquirer = require("inquirer");
+// const questions = require("../../index");
 // const { continueQuestions } = require("./dbfunc");
 
 const { user, password, database } = process.env;
 
-const db = mysql.createConnection(
-  {
-    host: "localhost",
-    user: user,
-    password: password,
-    database: database,
-  },
-  console.log(`Connected to the ${database} database.`)
-);
+// const db = mysql.createConnection(
+//   {
+//     host: "localhost",
+//     user: user,
+//     password: password,
+//     database: database,
+//   },
+//   console.log(`Connected to the ${database} database.`)
+// );
 
-async function continueQuestions(questions) {
-  await inquirer.prompt(questions);
-}
+// async function continueQuestions(questions) {
+//   await inquirer.prompt(questions);
+// }
 
 async function querythis(sql, questions) {
   // await checkingQuit(answers);
@@ -48,6 +47,7 @@ async function querythis(sql, questions) {
   }
 }
 
+//may not use
 async function specificQuery(sql, param) {
   const mysql = require("mysql2/promise");
   // create the connection
@@ -65,4 +65,5 @@ async function specificQuery(sql, param) {
     console.log(result);
   });
 }
+
 module.exports = querythis;

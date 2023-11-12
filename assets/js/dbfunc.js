@@ -31,7 +31,12 @@ function whichQuery(answers) {
       // employee table query
       querythis("SELECT * FROM employees", answers, questions);
     case "add a department":
-    // Insert dept to department table
+      // Insert dept to department table
+      querythis(
+        `INSERT INTO department (NAME) VALUES ("${answers.newdept}")`,
+        answers,
+        questions
+      );
     case "add a role":
     //insert role into role_table
     //constructor to handle this?
