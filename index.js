@@ -50,12 +50,25 @@ questions = [
     message: "Enter a new role.",
     when: (answers) => (answers.options === "add a role" ? true : false),
   },
-  new Add("text", ""),
+  //salary for role
+  new Add(
+    "text",
+    "salary",
+    "Enter the salary for this role",
+    `${(answers) => (answers.newRole !== "" ? true : false)}`
+  ),
+  // department id for role
+  new Add(
+    "number",
+    "dept_id",
+    "Enter the dept id for this role:",
+    `(answers) => (answers.newRole !== null ? true : false)`
+  ),
   {
     input: "text",
-    name: "role",
+    name: "employee",
     message: "Enter a new employee.",
-    when: (answers) => (answers.options === "add a role" ? true : false),
+    when: (answers) => (answers.options === "add an employee" ? true : false),
   },
   {
     input: "text",
