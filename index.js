@@ -3,7 +3,7 @@ const inquirer = require("inquirer");
 require("dotenv").config();
 const { whichQuery } = require("./assets/js/dbfunc");
 const mysql = require("mysql2");
-
+const Add = require("./add-update");
 //Deconstructing the .env file for readability
 const { user, password, database } = process.env;
 
@@ -39,16 +39,36 @@ questions = [
   //TODO conditional questions for adding roles/dept/employees
   {
     input: "text",
+    name: "newDept",
+    message: "Enter a new department.",
+    when: (answers) => (answers.options === "add a department" ? true : false),
+    suffix: "Department Added!",
+  },
+  {
+    input: "text",
+    name: "newRole",
+    message: "Enter a new role.",
+    when: (answers) => (answers.options === "add a role" ? true : false),
+  },
+  new Add("text", ""),
+  {
+    input: "text",
+    name: "role",
+    message: "Enter a new employee.",
+    when: (answers) => (answers.options === "add a role" ? true : false),
+  },
+  {
+    input: "text",
     name: "role",
     message: "Enter a new role.",
-    when: this.choices === "add a role",
+    when: (answers) => (answers.options === "add a role" ? true : false),
   },
 ];
 
 inquirer.prompt(questions).then((answers) => {
   console.log(answers);
   // checkingQuit(answers, questions);
-  whichQuery(answers, questions);
+  // whichQuery(answers, questions);
   //CREATE QUERY BASED ON ANSWER
 });
 

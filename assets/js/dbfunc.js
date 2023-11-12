@@ -19,7 +19,7 @@ const db = mysql.createConnection(
 
 function whichQuery(answers) {
   console.log("switch check", answers.options);
-  switch (answers.options) {
+  switch (answers.choices) {
     case "view all departments":
       querythis("SELECT * FROM department", questions);
     // continueQuestions(questions);
@@ -44,8 +44,8 @@ function whichQuery(answers) {
     //constructor to handle this?
     case "update an employee role":
     //constructor to handle this?
-    case "quit":
-      console.log(`Bye!`);
+    // case "quit":
+    //   console.log(`Bye!`);
     // checkingQuit(answers, questions);
     default:
   }
