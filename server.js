@@ -25,21 +25,6 @@ const db = mysql.createConnection(
   console.log(`Connected to the ${database} database.`)
 );
 
-// async function testingQuery(sql) {
-//   // const sql = ""; //sql query
-// }
-
-// with placeholder
-// connection.query(
-
-//   sql,
-
-//   Thing to pass into the placeholder,
-//   function (err, results) {
-//     console.log(results);
-//   }
-// );
-
 // Default Response for any other request (Not Found)
 app.use((req, res) => {
   res.status(404).end();

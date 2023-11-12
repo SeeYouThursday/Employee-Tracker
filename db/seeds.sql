@@ -39,19 +39,23 @@ VALUES (
 INSERT INTO employees (
     FIRST_NAME,
     LAST_NAME,
-    role_id
+    role_id,
+    manager_id
 ) VALUES (
     "Brian",
     "Is-The-Best",
-    2
+    2,
+    NULL
 ),(
     "Mauria",
     "Is-The-Best",
-    1
+    1,
+    NULL
 ),(
     "Kathy",
     "Is-The-Best",
-    2
+    2,
+    NULL
 );
 
 --set managers in employees table needed to happen here because the IDs didn't exist yet when trying to populate in the original INSERT above.
