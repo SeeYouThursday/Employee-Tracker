@@ -1,9 +1,10 @@
 require("dotenv").config();
 const inquirer = require("inquirer");
 const mysql = require("mysql2");
+
 //Importing from project files
-const Add = require("./add-update");
-const { whichQuery } = require("./assets/js/dbfunc");
+// const Add = require("./add-update");
+const whichQuery = require("./assets/js/dbfunc");
 
 //Deconstructing the .env file for readability
 const { user, password, database } = process.env;
@@ -38,15 +39,17 @@ const questions = [
     ],
   },
   //TODO conditional questions for adding roles/dept/employees
+  //Add a new Department Question
   {
     input: "text",
-    name: "newDept",
+    name: "department",
     message: "Enter a new department.",
     when: (answers) => (answers.options === "add a department" ? true : false),
   },
+  //Add a new Role Questions
   {
     input: "text",
-    name: "newRole",
+    name: "role_table",
     message: "Enter a new role.",
     when: (answers) => (answers.options === "add a role" ? true : false),
   },
@@ -58,38 +61,56 @@ const questions = [
     when: (answers) => (answers.newRole !== undefined ? true : false),
   },
   // department id for role
+  // TODO: display  dept names to choose from?
   {
     input: "text",
     name: "dept",
     message: "Enter the dept id for this role:",
     when: (answers) => (answers.newRole !== undefined ? true : false),
   },
-  // new Add(
-  //   "number",
-  //   "dept_id",
-  //   "Enter the dept id for this role:",
-  //   `(answers) => (answers.newRole !== null ? true : false)`
-  // ),
+  //Add a new Employee Questions
+  {
+    input: "text",
+    name: "employees",
+    message: "Enter the new employee's first name.",
+    when: (answers) => (answers.options === "add an employee" ? true : false),
+  },
   {
     input: "text",
     name: "employee",
-    message: "Enter a new employee.",
+    message: "Enter the new employee's last name.",
     when: (answers) => (answers.options === "add an employee" ? true : false),
+  },
+  //employee's role
+  {
+    input: "number",
+    name: "role",
+    message: "Enter the new employee's role:",
+    when: (answers) => (answers.options === "add an employee" ? true : false),
+  },
+  {
+    input: "confirm",
+    name: "managerCheck",
+    message: "Is this new employee a manager?",
+    when: (answers) => (answers.options === "add an employee" ? true : false),
+  },
+  {
+    //TODO: needs revision here - shows keep going even when not prompted for confirm
+    input: "text",
+    name: "Who is the manager of the new employee?",
+    message: "Is this new employee a manager?",
+    when: (answers) => answers.managerCheck === true,
   },
 ];
 
-const quitChecker = (answers) =>
+const quitHandler = (answers) =>
   answers.options === "quit" ? process.exit() : askQuestions();
 
 //RECURSIVE FUNCT TO CHECK TO SEE IF QUIT IS SELECTED, OTHERWISE CONTINUE ASKING QUESTIONS
 const askQuestions = async () => {
-  inquirer.prompt(questions).then(async (answers) => {
-    await whichQuery(answers);
-
-    await quitChecker(answers);
-  });
+  const answers = await inquirer.prompt(questions);
+  await whichQuery(answers);
+  await quitHandler(answers); //exit the prompts if user selects quit, otherwise, display questions again
 };
 
 askQuestions();
-
-module.exports = askQuestions;

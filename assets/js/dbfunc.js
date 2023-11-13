@@ -1,27 +1,40 @@
-const querythis = require("./queries");
+const { queryHandler, joinHandler, insertHandler } = require("./queries");
+const { printTable } = require("console-table-printer");
 
 async function whichQuery(answers) {
   switch (answers.options) {
     case "view all departments":
-      await querythis("SELECT * FROM department");
+      await queryHandler("SELECT * FROM department");
       //dept table query
       break;
     case "view all roles":
-      await querythis("SELECT * FROM role_table");
+      await queryHandler("SELECT * FROM role_table");
       // roles table query
       break;
     case "view all employees":
       // employee table query
-      await querythis("SELECT * FROM employees");
+      await queryHandler("SELECT * FROM employees");
       break;
     // askQuestions();
     case "add a department":
       // Insert dept to department table
-      await querythis(
-        `INSERT INTO department (NAME) VALUES ("${answers.newdept}")`,
-        answers,
-        questions
+      //This does insert into the table, the table has trouble rendering afterwards (although not required)
+      const newDept = answers.department;
+      const deptSql = `INSERT INTO department (name) VALUES ("${newDept}");`;
+      console.log(deptSql);
+      await insertHandler(deptSql);
+      await queryHandler("SELECT * FROM department");
+      break;
+    case "add a role":
+      // Insert dept to department table
+      // await joinHandler()
+      break;
+    case "add an employee":
+      // Insert dept to department table
+      await joinHandler(
+        "INSERT INTO department (name) values(`${answers.department}`)"
       );
+      await queryHandler("SELECT * FROM department");
       break;
     case "quit":
       console.log(`Bye!`);
@@ -31,4 +44,4 @@ async function whichQuery(answers) {
   }
 }
 
-module.exports = { whichQuery };
+module.exports = whichQuery;

@@ -4,7 +4,7 @@ const { printTable } = require("console-table-printer");
 
 const { user, password, database } = process.env;
 
-async function querythis(sql) {
+async function queryHandler(sql) {
   // await checkingQuit(answers);
   const db = await mysql.createConnection(
     {
@@ -30,7 +30,7 @@ async function querythis(sql) {
 }
 
 //may not use
-async function specificQuery(sql, param) {
+async function joinHandler(sql) {
   const mysql = require("mysql2/promise");
   // create the connection
   const db = await mysql.createConnection({
@@ -40,12 +40,45 @@ async function specificQuery(sql, param) {
     database: database,
   });
 
-  await db.query(sql, param, (err, result) => {
-    if (err) {
-      console.log(err);
-    }
-    console.log(result);
-  });
+  try {
+    const [results] = await db.execute(sql);
+    // use results and fields here
+    console.log("these", results);
+    printTable(results);
+  } catch (err) {
+    // handle error
+    console.error(err);
+  }
 }
 
-module.exports = querythis;
+async function insertHandler(sql) {
+  const mysql = require("mysql2/promise");
+  // create the connection
+  const db = await mysql.createConnection({
+    host: "localhost",
+    user: user,
+    password: password,
+    database: database,
+  });
+
+  try {
+    const [results, fields] = await db.execute(sql);
+    // use results and fields here
+    // await console.log("these", results);
+    await printTable(fields);
+    await successStatement(err);
+  } catch (err) {
+    // handle error
+    console.error(err);
+  }
+}
+
+const successStatement = (err) => {
+  {
+    if (!err) {
+      console.log("Successfully added!");
+    }
+  }
+};
+
+module.exports = { queryHandler, joinHandler, insertHandler };
