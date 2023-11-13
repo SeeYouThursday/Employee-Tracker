@@ -1,6 +1,6 @@
 require("dotenv").config();
 const mysql = require("mysql2/promise");
-const { printTable } = require("console-table-printer");
+// const { printTable } = require("console-table-printer");
 
 const { user, password, database } = process.env;
 
@@ -65,8 +65,8 @@ async function insertHandler(sql) {
     const [results, fields] = await db.execute(sql);
     // use results and fields here
     // await console.log("these", results);
-    await printTable(fields);
-    await successStatement(err);
+    await console.table(fields);
+    // await successStatement(err); //! Caused an error
   } catch (err) {
     // handle error
     console.error(err);
