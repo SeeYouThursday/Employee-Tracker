@@ -42,7 +42,6 @@ questions = [
     name: "newDept",
     message: "Enter a new department.",
     when: (answers) => (answers.options === "add a department" ? true : false),
-    suffix: "Department Added!",
   },
   {
     input: "text",
@@ -51,40 +50,52 @@ questions = [
     when: (answers) => (answers.options === "add a role" ? true : false),
   },
   //salary for role
-  new Add(
-    "text",
-    "salary",
-    "Enter the salary for this role",
-    `${(answers) => (answers.newRole !== "" ? true : false)}`
-  ),
+  // new Add(
+  //   "text",
+  //   "salary",
+  //   "Enter the salary for this role",
+  //   `(answers) => (answers.newRole !== "" ? true : false)`
+  // ),
   // department id for role
-  new Add(
-    "number",
-    "dept_id",
-    "Enter the dept id for this role:",
-    `(answers) => (answers.newRole !== null ? true : false)`
-  ),
+  // new Add(
+  //   "number",
+  //   "dept_id",
+  //   "Enter the dept id for this role:",
+  //   `(answers) => (answers.newRole !== null ? true : false)`
+  // ),
   {
     input: "text",
     name: "employee",
     message: "Enter a new employee.",
     when: (answers) => (answers.options === "add an employee" ? true : false),
   },
-  {
-    input: "text",
-    name: "role",
-    message: "Enter a new role.",
-    when: (answers) => (answers.options === "add a role" ? true : false),
-  },
 ];
 
-inquirer.prompt(questions).then((answers) => {
-  console.log(answers);
-  // checkingQuit(answers, questions);
-  // whichQuery(answers, questions);
-  //CREATE QUERY BASED ON ANSWER
-});
+// inquirer
+//   .prompt(questions)
+//   .then((answers) => {
+//     console.log(answers);
+//   })
+//   .then(() => {
+//     return inquirer.prompt(questions);
+//   });
 
+const askQuestions = () => {
+  inquirer.prompt(questions).then((answers) => {
+    console.log(answers);
+    if (answers.options === "quit") {
+      process.exit();
+    } else {
+      askQuestions();
+    }
+  });
+};
+
+askQuestions();
+
+// checkingQuit(answers, questions);
+// whichQuery(answers, questions);
+//CREATE QUERY BASED ON ANSWER
 //when I select any view, a table will be displayed based on the query
 //then, the user will be prompted again with with "What would you like to do?"
 
