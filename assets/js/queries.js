@@ -1,27 +1,10 @@
 require("dotenv").config();
 const mysql = require("mysql2/promise");
 const { printTable } = require("console-table-printer");
-// const inquirer = require("inquirer");
-// const questions = require("../../index");
-// const { continueQuestions } = require("./dbfunc");
 
 const { user, password, database } = process.env;
 
-// const db = mysql.createConnection(
-//   {
-//     host: "localhost",
-//     user: user,
-//     password: password,
-//     database: database,
-//   },
-//   console.log(`Connected to the ${database} database.`)
-// );
-
-// async function continueQuestions(questions) {
-//   await inquirer.prompt(questions);
-// }
-
-async function querythis(sql, questions) {
+async function querythis(sql) {
   // await checkingQuit(answers);
   const db = await mysql.createConnection(
     {
@@ -36,11 +19,10 @@ async function querythis(sql, questions) {
   );
 
   try {
-    const [results, fields] = await db.execute(sql);
+    const [results] = await db.execute(sql);
     // use results and fields here
-    console.log(results, fields);
+    // console.log("these", results);
     printTable(results);
-    // await continueQuestions(questions);
   } catch (err) {
     // handle error
     console.error(err);

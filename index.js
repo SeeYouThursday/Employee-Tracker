@@ -1,9 +1,10 @@
 require("dotenv").config();
 const inquirer = require("inquirer");
-require("dotenv").config();
-const { whichQuery } = require("./assets/js/dbfunc");
 const mysql = require("mysql2");
+//Importing from project files
 const Add = require("./add-update");
+const { whichQuery } = require("./assets/js/dbfunc");
+
 //Deconstructing the .env file for readability
 const { user, password, database } = process.env;
 
@@ -20,7 +21,7 @@ const db = mysql.createConnection(
   console.log(`Connected to the ${database} database.`)
 );
 
-questions = [
+const questions = [
   {
     type: "list",
     name: "options",
@@ -50,13 +51,19 @@ questions = [
     when: (answers) => (answers.options === "add a role" ? true : false),
   },
   //salary for role
-  // new Add(
-  //   "text",
-  //   "salary",
-  //   "Enter the salary for this role",
-  //   `(answers) => (answers.newRole !== "" ? true : false)`
-  // ),
+  {
+    input: "text",
+    name: "salary",
+    message: "Enter the salary for this role:",
+    when: (answers) => (answers.newRole !== undefined ? true : false),
+  },
   // department id for role
+  {
+    input: "text",
+    name: "dept",
+    message: "Enter the dept id for this role:",
+    when: (answers) => (answers.newRole !== undefined ? true : false),
+  },
   // new Add(
   //   "number",
   //   "dept_id",
@@ -71,32 +78,18 @@ questions = [
   },
 ];
 
-// inquirer
-//   .prompt(questions)
-//   .then((answers) => {
-//     console.log(answers);
-//   })
-//   .then(() => {
-//     return inquirer.prompt(questions);
-//   });
+const quitChecker = (answers) =>
+  answers.options === "quit" ? process.exit() : askQuestions();
 
-const askQuestions = () => {
-  inquirer.prompt(questions).then((answers) => {
-    console.log(answers);
-    if (answers.options === "quit") {
-      process.exit();
-    } else {
-      askQuestions();
-    }
+//RECURSIVE FUNCT TO CHECK TO SEE IF QUIT IS SELECTED, OTHERWISE CONTINUE ASKING QUESTIONS
+const askQuestions = async () => {
+  inquirer.prompt(questions).then(async (answers) => {
+    await whichQuery(answers);
+
+    await quitChecker(answers);
   });
 };
 
 askQuestions();
 
-// checkingQuit(answers, questions);
-// whichQuery(answers, questions);
-//CREATE QUERY BASED ON ANSWER
-//when I select any view, a table will be displayed based on the query
-//then, the user will be prompted again with with "What would you like to do?"
-
-module.exports = questions;
+module.exports = askQuestions;
