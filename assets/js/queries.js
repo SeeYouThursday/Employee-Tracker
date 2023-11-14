@@ -1,9 +1,10 @@
 require("dotenv").config();
 const mysql = require("mysql2/promise");
-// const { printTable } = require("console-table-printer");
+const { printTable } = require("console-table-printer");
 
 const { user, password, database } = process.env;
 
+////uses the results, not fields
 async function queryHandler(sql) {
   // await checkingQuit(answers);
   const db = await mysql.createConnection(
@@ -29,7 +30,7 @@ async function queryHandler(sql) {
   }
 }
 
-//may not use
+//! JOIN AND QUERY HANDLER BOTH HAVE THE SAME FUNCTION
 async function joinHandler(sql) {
   const mysql = require("mysql2/promise");
   // create the connection
@@ -51,6 +52,7 @@ async function joinHandler(sql) {
   }
 }
 
+////uses the fields, not results
 async function insertHandler(sql) {
   const mysql = require("mysql2/promise");
   // create the connection
@@ -62,23 +64,23 @@ async function insertHandler(sql) {
   });
 
   try {
-    const [results, fields] = await db.execute(sql);
+    const [fields] = await db.execute(sql);
     // use results and fields here
     // await console.log("these", results);
-    await console.table(fields);
-    // await successStatement(err); //! Caused an error
+    console.table(fields);
+    // successStatement(); //! Caused an error
   } catch (err) {
     // handle error
     console.error(err);
   }
 }
 
-const successStatement = (err) => {
-  {
-    if (!err) {
-      console.log("Successfully added!");
-    }
-  }
-};
+// const successStatement = () => {
+//   {
+//     if (!err) {
+//       console.log("Successfully added!");
+//     }
+//   }
+// };
 
 module.exports = { queryHandler, joinHandler, insertHandler };

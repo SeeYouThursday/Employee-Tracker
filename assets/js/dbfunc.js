@@ -3,6 +3,8 @@ const { queryHandler, joinHandler, insertHandler } = require("./queries");
 const { printTable } = require("console-table-printer");
 const cTable = require("console.table");
 
+// ?? Consider Refactoring
+
 async function whichQuery(answers) {
   switch (answers.options) {
     case "view all departments":
@@ -16,8 +18,7 @@ async function whichQuery(answers) {
       break;
     case "view all employees":
       // employee table query
-      //TODO: change to a JOINHANDLER
-      await queryHandler("SELECT * FROM employees");
+      await joinHandler("SELECT * FROM employees");
       break;
     // askQuestions();
     case "add a department":
@@ -51,7 +52,14 @@ async function whichQuery(answers) {
       const employeeSql = `INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES ("${first}", "${last}", ${role}, ${manager});`;
 
       await insertHandler(employeeSql);
-      await queryHandler("SELECT * FROM employees");
+
+      const querySql = `SELECT e.id, e.first_name, e.last_name, role_table.salary, role_table.title,
+      CONCAT(m.first_name," ", m.last_name)  AS Manager FROM employees e
+      JOIN role_table 
+      ON role_table.id = e.role_id
+      LEFT JOIN employees m
+      ON e.manager_id = m.id;`;
+      await queryHandler(querySql);
       break;
     case "update an employee":
       //TODO UPDATE HERE!
