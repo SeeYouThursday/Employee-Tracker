@@ -161,15 +161,15 @@ const updateEmployee = async () => {
         await db.query(
           "UPDATE employees SET role_id = ? WHERE id = ?",
           [answer.roleId, answer.employeeId],
-          function (err, results) {
+          function (err, res) {
             if (err) throw err;
-            console.log("Employee updated successfully!");
           }
         );
+        console.log("Employee updated successfully!");
       } catch (err) {
         console.error(err);
       }
     });
 };
 
-module.exports = { addRole, addEmployee, addDepartment };
+module.exports = { addRole, addEmployee, addDepartment, updateEmployee };

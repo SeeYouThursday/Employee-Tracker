@@ -1,5 +1,10 @@
 const { queryHandler, joinHandler } = require("./queries");
-const { addRole, addDepartment, addEmployee } = require("./questions");
+const {
+  addRole,
+  addDepartment,
+  addEmployee,
+  updateEmployee,
+} = require("./questions");
 
 // ?? Consider Refactoring
 
@@ -64,13 +69,12 @@ async function whichQuery(answers) {
       ON e.manager_id = m.id;`);
       //Ask Employee Questions and insert into employee table
       await addEmployee();
-    case "update an employee":
+    case "update employee role":
       //TODO UPDATE HERE!
       // Display the employee table to help answer which employee to update
-      await queryHandler(`SELECT 
-      CONCAT(m.first_name, ' ', m.last_name) AS Manager, e.manager_id FROM employees e
-      JOIN employees m
-      ON e.manager_id = m.id;`);
+      await queryHandler(`SELECT id, first_name, last_name FROM employees;`);
+      await queryHandler(`SELECT id, title FROM role_table;`);
+      await updateEmployee();
       break;
     case "quit":
       console.log(`Bye!`);

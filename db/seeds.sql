@@ -33,7 +33,7 @@ VALUES (
     70000,
     1
 ),
-("manager", 80000, 4);
+("Catbox Cleaner", 80000, 4);
 
 --Employee Seed Data
 INSERT INTO employees (
