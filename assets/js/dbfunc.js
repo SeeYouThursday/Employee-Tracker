@@ -1,8 +1,7 @@
 const { isNull } = require("util");
-const { queryHandler, joinHandler, insertHandler } = require("./queries");
+const { queryHandler, joinHandler } = require("./queries");
 const { printTable } = require("console-table-printer");
-// const { listOptions } = require("./listQueries");
-const addRole = require("./questions");
+const { addRole, addDepartment, addEmployee } = require("./questions");
 const askQuestions = require("../../index");
 
 // ?? Consider Refactoring
@@ -49,47 +48,33 @@ async function whichQuery(answers) {
     // askQuestions();
     case "add a department":
       // Insert dept to department table
-      const newDept = answers.department;
-      const deptSql = `INSERT INTO department (name) VALUES ("${newDept}");`;
-      console.log(deptSql);
-      await insertHandler(deptSql);
-      await queryHandler("SELECT * FROM department");
+      addDepartment();
       break;
     case "add a role":
       // Display the dept table to help answer which dept the new role belongs to
-      const dept = await queryHandler(
-        `SELECT name AS Department, id FROM department;`
-      );
+      await queryHandler(`SELECT name AS Department, id FROM department;`);
+
       await addRole();
       process.exit();
     // await askQuestions();
     case "add an employee":
+      // Display the role table to help answer which role the new employee belongs to
       await queryHandler(`SELECT * from role_table;`);
-      const { first, last, role, managerCheck } = answers;
-      // Insert handle NULLs in manager
-      let manager = "NULL";
-      const managerHere = () => {
-        if (!managerCheck) {
-          console.log(`I'M THE CAPTAIN NOW!`);
-        } else {
-          manager = answers.manager;
-        }
-      };
-      managerHere();
-      const employeeSql = `INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES ("${first}", "${last}", ${role}, ${manager});`;
-
-      await insertHandler(employeeSql);
-
-      const querySql = `SELECT e.id, e.first_name, e.last_name, role_table.salary, role_table.title,
-      CONCAT(m.first_name," ", m.last_name)  AS Manager FROM employees e
-      JOIN role_table 
-      ON role_table.id = e.role_id
-      LEFT JOIN employees m
-      ON e.manager_id = m.id;`;
-      await queryHandler(querySql);
-      break;
+      // Display the employee table's manager info to help answer which manager the new employee belongs to
+      await queryHandler(`SELECT 
+      CONCAT(m.first_name, ' ', m.last_name) AS Manager, e.manager_id FROM employees e
+      JOIN employees m
+      ON e.manager_id = m.id;`);
+      //Ask Employee Questions and insert into employee table
+      await addEmployee();
+      process.exit();
     case "update an employee":
       //TODO UPDATE HERE!
+      // Display the employee table to help answer which employee to update
+      await queryHandler(`SELECT 
+      CONCAT(m.first_name, ' ', m.last_name) AS Manager, e.manager_id FROM employees e
+      JOIN employees m
+      ON e.manager_id = m.id;`);
       break;
     case "quit":
       console.log(`Bye!`);
