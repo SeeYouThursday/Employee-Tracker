@@ -1,8 +1,5 @@
-const { isNull } = require("util");
 const { queryHandler, joinHandler } = require("./queries");
-const { printTable } = require("console-table-printer");
 const { addRole, addDepartment, addEmployee } = require("./questions");
-const askQuestions = require("../../index");
 
 // ?? Consider Refactoring
 
@@ -67,7 +64,6 @@ async function whichQuery(answers) {
       ON e.manager_id = m.id;`);
       //Ask Employee Questions and insert into employee table
       await addEmployee();
-      process.exit();
     case "update an employee":
       //TODO UPDATE HERE!
       // Display the employee table to help answer which employee to update

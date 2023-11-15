@@ -85,7 +85,7 @@ const addEmployee = async () => {
         input: "input",
         name: "managerId",
         message: "What is the id of the new employee's manager?",
-        when: (answers) => answers.managerCheck === true,
+        when: (answers) => answers.managerCheck == "n",
         prefix:
           "Look at the above table to find the manager ID of the new employee's manager.\n",
       },
@@ -98,7 +98,7 @@ const addEmployee = async () => {
           role_id: answer.roleId,
           manager_id: answer.managerId,
         });
-        console.log("Role added successfully!");
+        console.log("Employee added successfully!");
       } catch (err) {
         console.error(err);
       }

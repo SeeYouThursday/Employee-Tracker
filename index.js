@@ -68,17 +68,15 @@ const questions = [
   // },
 ];
 
-const quitHandler = (answers) =>
-  answers.options === "quit" ? process.exit() : askQuestions();
-
-//RECURSIVE FUNCT TO CHECK TO SEE IF QUIT IS SELECTED, OTHERWISE CONTINUE ASKING QUESTIONS
 async function askQuestions() {
-  inquirer.prompt(questions).then((answers) => {
-    whichQuery(answers);
-    // quitHandler(answers);
+  inquirer.prompt(questions).then(async (answers) => {
+    await whichQuery(answers);
+    //RECURSIVE FUNCT TO CHECK TO SEE IF QUIT IS SELECTED, OTHERWISE CONTINUE ASKING QUESTIONS
+    const quitHandler = async (answers) =>
+      answers.options === "quit" ? process.exit() : await askQuestions();
+    quitHandler(answers);
   });
 }
-
 askQuestions();
 
 module.exports = askQuestions;

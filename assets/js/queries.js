@@ -31,7 +31,6 @@ async function queryHandler(sql) {
   }
 }
 
-//! JOIN AND QUERY HANDLER BOTH HAVE THE SAME FUNCTION
 async function joinHandler(sql) {
   const mysql = require("mysql2/promise");
   // create the connection
@@ -76,12 +75,5 @@ async function insertHandler(sql) {
   }
 }
 
-// const successStatement = () => {
-//   {
-//     if (!err) {
-//       console.log("Successfully added!");
-//     }
-//   }
-// };
 
 module.exports = { queryHandler, joinHandler, insertHandler };
