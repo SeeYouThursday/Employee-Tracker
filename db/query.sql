@@ -30,9 +30,24 @@ LEFT JOIN department
 ON role_table.department_id = department.id;
 --sorted based on salary currently
 
-SELECT title FROM role_table;
+SELECT id, title AS Roles, salary as Salary, department.name AS department
+LEFT JOIN department
+ON role_table.department_id = department.id;
 
-Select name AS Department from department;
+SELECT 
+    role_table.id as ID,
+    role_table.salary AS Salary, 
+    role_table.title AS "Job Title", 
+    department.name AS Department
+FROM 
+    role_table
+LEFT JOIN 
+    department
+ON 
+    role_table.department_id = department.id;
+
+
+Select name AS Department from department; --done
 
 SELECT 
 CONCAT(m.first_name, ' ', m.last_name) AS Manager FROM employees e

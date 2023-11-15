@@ -1,24 +1,50 @@
 const { isNull } = require("util");
 const { queryHandler, joinHandler, insertHandler } = require("./queries");
 const { printTable } = require("console-table-printer");
-const cTable = require("console.table");
+// const { listOptions } = require("./listQueries");
+const addRole = require("./questions");
+const askQuestions = require("../../index");
 
 // ?? Consider Refactoring
 
 async function whichQuery(answers) {
   switch (answers.options) {
     case "view all departments":
-      await queryHandler("SELECT * FROM department");
+      await queryHandler("Select name AS Department from department;");
       //dept table query
       break;
     case "view all roles":
       //TODO: change to a JOINHANDLER
-      await queryHandler("SELECT * FROM role_table");
+      await queryHandler(`SELECT 
+      role_table.id as ID,
+      role_table.salary AS Salary, 
+      role_table.title AS "Job Title", 
+      department.name AS Department
+  FROM 
+      role_table
+  LEFT JOIN 
+      department
+  ON 
+      role_table.department_id = department.id;`);
       // roles table query
       break;
     case "view all employees":
       // employee table query
-      await joinHandler("SELECT * FROM employees");
+      await joinHandler(`SELECT 
+      e.id, 
+      e.first_name AS "First Name", 
+      e.last_name AS "Last Name", 
+      role_table.salary AS Salary, 
+      role_table.title AS "Job Title", 
+      CONCAT(m.first_name, ' ', m.last_name) AS Manager,
+      department.name AS Department
+  FROM employees e
+  JOIN role_table 
+  ON role_table.id = e.role_id
+  LEFT JOIN employees m
+  ON e.manager_id = m.id
+  LEFT JOIN department
+  ON role_table.department_id = department.id;`);
       break;
     // askQuestions();
     case "add a department":
@@ -30,24 +56,25 @@ async function whichQuery(answers) {
       await queryHandler("SELECT * FROM department");
       break;
     case "add a role":
-      // Insert role to role_table table
-      const { title, salary, dept_id } = answers;
-      const roleSql = `INSERT INTO role_table (title, salary, department_id) VALUES ("${title}", ${salary}, ${dept_id});`;
-
-      console.log(roleSql);
-      await insertHandler(roleSql);
-      //TODO: change to a JOINHANDLER
-      await queryHandler("SELECT * FROM role_table");
-      break;
-
+      // Display the dept table to help answer which dept the new role belongs to
+      const dept = await queryHandler(
+        `SELECT name AS Department, id FROM department;`
+      );
+      await addRole();
+      process.exit();
+    // await askQuestions();
     case "add an employee":
-      // Insert dept to department table
+      await queryHandler(`SELECT * from role_table;`);
       const { first, last, role, managerCheck } = answers;
+      // Insert handle NULLs in manager
       let manager = "NULL";
-      const managerHere = () =>
-        !managerCheck
-          ? console.log(`I'M THE CAPTAIN NOW!`)
-          : (manager = answers.manager);
+      const managerHere = () => {
+        if (!managerCheck) {
+          console.log(`I'M THE CAPTAIN NOW!`);
+        } else {
+          manager = answers.manager;
+        }
+      };
       managerHere();
       const employeeSql = `INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES ("${first}", "${last}", ${role}, ${manager});`;
 

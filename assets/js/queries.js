@@ -23,6 +23,7 @@ async function queryHandler(sql) {
     const [results] = await db.execute(sql);
     // use results and fields here
     // console.log("these", results);
+    console.log(`\n`);
     printTable(results);
   } catch (err) {
     // handle error

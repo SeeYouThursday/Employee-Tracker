@@ -11,14 +11,15 @@ const listOptions = async (sql) => {
     user: user,
     password: password,
     database: database,
+    rowsAsArray: true,
   });
 
   try {
     const [results, fields] = await db.execute(sql);
     // console.log("These Results", results.flat());
-    console.log("These fields", fields);
-    console.log("these results", results.flat());
-    return results.flat();
+    // console.log("These fields", fields);
+    // console.log("these results", results.flat());
+    return results.flatMap((result) => result[0]);
   } catch (err) {
     // handle error
     console.error(err);
