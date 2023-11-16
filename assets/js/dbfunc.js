@@ -50,14 +50,14 @@ async function whichQuery(answers) {
     // askQuestions();
     case "add a department":
       // Insert dept to department table
-      addDepartment();
+      await addDepartment();
       break;
     case "add a role":
       // Display the dept table to help answer which dept the new role belongs to
       await queryHandler(`SELECT name AS Department, id FROM department;`);
 
       await addRole();
-      process.exit();
+      break;
     // await askQuestions();
     case "add an employee":
       // Display the role table to help answer which role the new employee belongs to
@@ -69,6 +69,7 @@ async function whichQuery(answers) {
       ON e.manager_id = m.id;`);
       //Ask Employee Questions and insert into employee table
       await addEmployee();
+      break;
     case "update employee role":
       //TODO UPDATE HERE!
       // Display the employee table to help answer which employee to update

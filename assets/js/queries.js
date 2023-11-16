@@ -44,7 +44,7 @@ async function joinHandler(sql) {
   try {
     const [results] = await db.execute(sql);
     // use results and fields here
-    console.log("these", results);
+    // console.log("these", results);
     printTable(results);
   } catch (err) {
     // handle error
@@ -74,6 +74,5 @@ async function insertHandler(sql) {
     console.error(err);
   }
 }
-
 
 module.exports = { queryHandler, joinHandler, insertHandler };

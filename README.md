@@ -1,5 +1,7 @@
 # Employee Tracker
 
+[![GitHub Badge](https://img.shields.io/badge/SeeYouThursday-content?logo=github)](https://github.com//SeeYouThursday) ![Static Badge](https://img.shields.io/badge/License-MIT-blue)
+
 ## Description
 
 The Employee Tracker app allows companies to manage their employees, departments, and roles. The app is run through the command line and allows users to view, add departments, and roles. Users can also view,s add, and update employees.
@@ -29,15 +31,19 @@ The Employee Tracker app allows companies to manage their employees, departments
 
 ## Usage
 
+[Video Walkthrough](https://tinyurl.com/yojq2s6o)
+
 1. Run node index to start the app
 2. Select from the menu to view, add, or update employees, departments, or roles
 3. Follow the prompts to complete your selection
 4. Use the provided tables in the CLI to make your selections.
 5. Select Quit to end the app.
 
+![#Screenshot of App](/assets/images/employeetracker-sc.png)
+
 ## License
 
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+**Note: This application is covered under the MIT License.**
 
 ## Questions
 
