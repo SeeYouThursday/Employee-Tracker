@@ -60,14 +60,32 @@ const addEmployee = async () => {
         type: "input",
         name: "firstName",
         message: "What is the employee's first name?",
+        validate: (answer) => {
+          if (answer.length < 1 || answer === "" || answer.length > 30) {
+            return console.log(
+              "\nPlease use 1-30 characters in your response."
+            );
+          } else {
+            return true;
+          }
+        },
       },
       {
         type: "input",
         name: "lastName",
         message: "What is the employee's last name?",
+        validate: (answer) => {
+          if (answer.length < 1 || answer === "" || answer.length > 30) {
+            return console.log(
+              "\nPlease use 1-30 characters in your response."
+            );
+          } else {
+            return true;
+          }
+        },
       },
       {
-        type: "input",
+        type: "number",
         name: "roleId",
         message: "What is the employee's role ID?",
         prefix: "Look at the above table to find the role ID.\n",
@@ -82,7 +100,7 @@ const addEmployee = async () => {
             : console.log("\nPlease type Y or N to respond."),
       },
       {
-        input: "input",
+        input: "number",
         name: "managerId",
         message: "What is the id of the new employee's manager?",
         when: (answers) => answers.managerCheck == "n",
@@ -120,6 +138,15 @@ const addDepartment = async () => {
         type: "input",
         name: "deptName",
         message: "What is the name of the department?",
+        validate: (answer) => {
+          if (answer.length < 1 || answer === "" || answer.length > 30) {
+            return console.log(
+              "\nPlease use 1-30 characters in your response."
+            );
+          } else {
+            return true;
+          }
+        },
       },
     ])
     .then(async (answer) => {
@@ -146,12 +173,12 @@ const updateEmployee = async () => {
   await inquirer
     .prompt([
       {
-        type: "input",
+        type: "number",
         name: "employeeId",
         message: "What is the ID of the employee you want to update?",
       },
       {
-        type: "input",
+        type: "number",
         name: "roleId",
         message: "What is the new role ID for this employee?",
       },

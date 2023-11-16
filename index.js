@@ -18,54 +18,6 @@ const questions = [
       "quit",
     ],
   },
-  //Add a new Department Question
-  // {
-  //   input: "text",
-  //   name: "department",
-  //   message: "Enter a new department.",
-  //   when: (answers) => answers.options === "add a department",
-  // },
-  //Add a new Role Questions
-
-  //Add a new Employee Questions
-  // {
-  //   input: "text",
-  //   name: "first",
-  //   message: "Enter the new employee's first name.",
-  //   when: (answers) => answers.options === "add an employee",
-  // },
-  // {
-  //   input: "text",
-  //   name: "last",
-  //   message: "Enter the new employee's last name.",
-  //   when: (answers) => answers.options === "add an employee",
-  // },
-  // //employee's role
-  // {
-  //   //TODO CHOICES ARRAY USING MYSQL2
-  //   input: "list",
-  //   name: "role",
-  //   message: "Select the new employee's role:",
-  //   choices: [],
-  //   when: (answers) => answers.options === "add an employee",
-  // },
-  // {
-  //   input: "confirm",
-  //   name: "managerCheck",
-  //   message: "Is this new employee a manager? (Y/N)",
-  //   when: (answers) => answers.options === "add an employee",
-  //   validate: (answers) =>
-  //     answers.managerCheck !== "y" || answers.managerCheck !== "n"
-  //       ? true
-  //       : console.log("\nPlease type Y or N to respond."),
-  // },
-  // {
-  //   input: "list",
-  //   name: "manager",
-  //   message: "What is the id of the new employee's manager?",
-  //   choices: [],
-  //   when: (answers) => answers.managerCheck === true,
-  // },
 ];
 
 async function askQuestions() {
