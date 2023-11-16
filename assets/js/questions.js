@@ -18,9 +18,18 @@ const addRole = async () => {
         type: "input",
         name: "roleName",
         message: "What is the name of the role?",
+        validate: (answer) => {
+          if (answer.length < 1 || answer === "" || answer.length > 30) {
+            return console.log(
+              "\nPlease use 1-30 characters in your response."
+            );
+          } else {
+            return true;
+          }
+        },
       },
       {
-        type: "input",
+        type: "number",
         name: "salary",
         message: "What is the salary for this role?",
       },
